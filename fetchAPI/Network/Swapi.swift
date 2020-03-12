@@ -37,7 +37,12 @@ extension Swapi: TargetType{
 
   // 4
   public var sampleData: Data {
-    return Data()
+    switch self {
+    case .films:
+      let path = Bundle.main.path(forResource:"SampleFilmsSwapiReponse", ofType: "json")!
+      let data: Data = (try? Data(contentsOf: URL(fileURLWithPath: path))) ?? Data()
+      return data
+    }
   }
 
   // 5
@@ -46,13 +51,7 @@ extension Swapi: TargetType{
     switch self {
     case .films:
       // 3
-      return .requestParameters(
-        parameters: [
-          "format": "film",
-          "formatType": "film",
-          "orderBy": "-episode_id",
-          "limit": 7],
-        encoding: URLEncoding.default)
+      return .requestPlain
     }
   }
 

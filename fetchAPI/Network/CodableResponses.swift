@@ -9,13 +9,5 @@
 import Foundation
 
 struct SwapiResponse<T: Codable>: Codable {
-  let data: SwapiResults<T>
-}
-
-struct SwapiResults<T: Codable>: Codable {
   let results: [T]
-}
-
-struct ImgurResponse<T: Codable>: Codable {
-  let data: T
 }

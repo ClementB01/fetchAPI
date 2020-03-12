@@ -19,6 +19,7 @@
 		08FD04BF241A3ED3002A8BC6 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD04BE241A3ED3002A8BC6 /* Film.swift */; };
 		08FD04C1241A4015002A8BC6 /* CodableResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD04C0241A4015002A8BC6 /* CodableResponses.swift */; };
 		08FD04C3241A40BD002A8BC6 /* Swapi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD04C2241A40BD002A8BC6 /* Swapi.swift */; };
+		08FD04C6241A5026002A8BC6 /* SampleFilmsSwapiReponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 08FD04C5241A5026002A8BC6 /* SampleFilmsSwapiReponse.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		08FD04BE241A3ED3002A8BC6 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		08FD04C0241A4015002A8BC6 /* CodableResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableResponses.swift; sourceTree = "<group>"; };
 		08FD04C2241A40BD002A8BC6 /* Swapi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swapi.swift; sourceTree = "<group>"; };
+		08FD04C5241A5026002A8BC6 /* SampleFilmsSwapiReponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SampleFilmsSwapiReponse.json; path = ../../../../Downloads/SampleFilmsSwapiReponse.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,13 +70,13 @@
 		08FD049D241A32CB002A8BC6 /* fetchAPI */ = {
 			isa = PBXGroup;
 			children = (
+				08FD04C4241A5019002A8BC6 /* Ressource */,
 				08FD04BD241A3D97002A8BC6 /* Helpers */,
 				08FD04BC241A3D85002A8BC6 /* Network */,
 				08FD04BA241A3D71002A8BC6 /* Models */,
 				08FD04B9241A3D67002A8BC6 /* Views */,
 				08FD049E241A32CB002A8BC6 /* AppDelegate.swift */,
 				08FD04A0241A32CB002A8BC6 /* SceneDelegate.swift */,
-				08FD04A4241A32CB002A8BC6 /* Main.storyboard */,
 				08FD04A7241A32CE002A8BC6 /* Assets.xcassets */,
 				08FD04A9241A32CE002A8BC6 /* LaunchScreen.storyboard */,
 				08FD04AC241A32CE002A8BC6 /* Info.plist */,
@@ -85,6 +87,7 @@
 		08FD04B9241A3D67002A8BC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				08FD04A4241A32CB002A8BC6 /* Main.storyboard */,
 				08FD04A2241A32CB002A8BC6 /* ViewController.swift */,
 			);
 			path = Views;
@@ -112,6 +115,14 @@
 			children = (
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		08FD04C4241A5019002A8BC6 /* Ressource */ = {
+			isa = PBXGroup;
+			children = (
+				08FD04C5241A5026002A8BC6 /* SampleFilmsSwapiReponse.json */,
+			);
+			path = Ressource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08FD04AB241A32CE002A8BC6 /* LaunchScreen.storyboard in Resources */,
+				08FD04C6241A5026002A8BC6 /* SampleFilmsSwapiReponse.json in Resources */,
 				08FD04A8241A32CE002A8BC6 /* Assets.xcassets in Resources */,
 				08FD04A6241A32CB002A8BC6 /* Main.storyboard in Resources */,
 			);
