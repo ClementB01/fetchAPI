@@ -20,6 +20,7 @@
 		08FD04C1241A4015002A8BC6 /* CodableResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD04C0241A4015002A8BC6 /* CodableResponses.swift */; };
 		08FD04C3241A40BD002A8BC6 /* Swapi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD04C2241A40BD002A8BC6 /* Swapi.swift */; };
 		08FD04C6241A5026002A8BC6 /* SampleFilmsSwapiReponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 08FD04C5241A5026002A8BC6 /* SampleFilmsSwapiReponse.json */; };
+		08FD04C8241A6634002A8BC6 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FD04C7241A6634002A8BC6 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		08FD04C0241A4015002A8BC6 /* CodableResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableResponses.swift; sourceTree = "<group>"; };
 		08FD04C2241A40BD002A8BC6 /* Swapi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swapi.swift; sourceTree = "<group>"; };
 		08FD04C5241A5026002A8BC6 /* SampleFilmsSwapiReponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SampleFilmsSwapiReponse.json; path = ../../../../Downloads/SampleFilmsSwapiReponse.json; sourceTree = "<group>"; };
+		08FD04C7241A6634002A8BC6 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				08FD04BA241A3D71002A8BC6 /* Models */,
 				08FD04B9241A3D67002A8BC6 /* Views */,
 				08FD049E241A32CB002A8BC6 /* AppDelegate.swift */,
+				08FD04A4241A32CB002A8BC6 /* Main.storyboard */,
 				08FD04A0241A32CB002A8BC6 /* SceneDelegate.swift */,
 				08FD04A7241A32CE002A8BC6 /* Assets.xcassets */,
 				08FD04A9241A32CE002A8BC6 /* LaunchScreen.storyboard */,
@@ -87,8 +90,8 @@
 		08FD04B9241A3D67002A8BC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				08FD04A4241A32CB002A8BC6 /* Main.storyboard */,
 				08FD04A2241A32CB002A8BC6 /* ViewController.swift */,
+				08FD04C7241A6634002A8BC6 /* DetailsViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				08FD04BF241A3ED3002A8BC6 /* Film.swift in Sources */,
 				08FD04C1241A4015002A8BC6 /* CodableResponses.swift in Sources */,
 				08FD049F241A32CB002A8BC6 /* AppDelegate.swift in Sources */,
+				08FD04C8241A6634002A8BC6 /* DetailsViewController.swift in Sources */,
 				08FD04C3241A40BD002A8BC6 /* Swapi.swift in Sources */,
 				08FD04A1241A32CB002A8BC6 /* SceneDelegate.swift in Sources */,
 			);

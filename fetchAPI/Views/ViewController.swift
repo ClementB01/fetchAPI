@@ -12,6 +12,9 @@ import Moya
 
 class ViewController: UIViewController {
     
+    //MARK: - Outlets
+    @IBOutlet weak var tableView: UITableView!
+    
     //MARK: - Provider
     //let provider = MoyaProvider<Swapi>()
     let provider = MoyaProvider<Swapi>(stubClosure: MoyaProvider.immediatelyStub)
@@ -71,6 +74,14 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //let navVC = segue.destination as! UINavigationController
+        let destVC = segue.destination as! DetailsViewController
+        guard case .ready(let items) = state else { return }
+        destVC.itemToShow = items[tableView.indexPath(for: (sender as! UITableViewCell))!.row]
+        //destVC.delegate = self
+    }
 }
 
 extension ViewController {
@@ -103,11 +114,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     return 1
   }
   
-  /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
     guard case .ready(let items) = state else { return }
     
-    let comicVC = CardViewController.instantiate(comic: items[indexPath.item])
-    navigationController?.pushViewController(comicVC, animated: true)
-  }*/
+    
+  }
 }
