@@ -15,4 +15,5 @@ struct Film: Codable {
     let director: String
     let producer: String
     let release_date: String
+    var poster_path: String?
 }

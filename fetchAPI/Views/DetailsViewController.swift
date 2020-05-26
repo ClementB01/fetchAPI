@@ -6,9 +6,13 @@
 //  Copyright © 2020 lpiem. All rights reserved.
 //
 
+import Foundation
 import UIKit
+import Moya
 
 class DetailsViewController: UITableViewController {
+    
+    var itemToShow: Film?
     
     //MARK: - Outlets
     @IBOutlet weak var lblTitle: UILabel!
@@ -16,11 +20,8 @@ class DetailsViewController: UITableViewController {
     @IBOutlet weak var lblProducer: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblOpening: UITextView!
+    @IBOutlet weak var imgView: UIImageView!
     
-    
-    var delegate: DetailsViewController?
-    var itemToShow: Film?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,8 +34,7 @@ class DetailsViewController: UITableViewController {
             lblProducer.text = itemToShow.producer
             lblDate.text = itemToShow.release_date
             lblOpening.text = itemToShow.opening_crawl
-            print(itemToShow.opening_crawl)
-        }
 
+        }
     }
 }

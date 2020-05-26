@@ -11,3 +11,11 @@ import Foundation
 struct SwapiResponse<T: Codable>: Codable {
   let results: [T]
 }
+
+struct TheMoviesBDResponse: Codable {
+  let results: [TheMoviesBDMovie]
+}
+
+struct TheMoviesBDMovie: Codable {
+  let poster_path: String?
+}

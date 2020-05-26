@@ -10,14 +10,19 @@ import Foundation
 import UIKit
 import Moya
 
+import Kingfisher
+
 class ViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
+
     
     //MARK: - Provider
     //let provider = MoyaProvider<Swapi>()
-    let provider = MoyaProvider<Swapi>(stubClosure: MoyaProvider.immediatelyStub)
+    let providerSwapi = MoyaProvider<Swapi>(stubClosure: MoyaProvider.immediatelyStub)
+    let providerTheMovieBD = MoyaProvider<TheMovieBD>(plugins: [NetworkLoggerPlugin()])
+    
     
     // MARK: - View State
     private var state: State = .loading {
@@ -25,24 +30,10 @@ class ViewController: UIViewController {
             switch state {
             case .ready:
                 print("ready")
-                //viewMessage.isHidden = true
-                //tblComics.isHidden = false
-            //tblComics.reloadData()
             case .loading:
                 print("loading")
-                //tblComics.isHidden = true
-                //viewMessage.isHidden = false
-                //lblMessage.text = "Getting comics ..."
-            //imgMeessage.image = #imageLiteral(resourceName: "Loading")
             case .error:
                 print("error")
-                //tblComics.isHidden = true
-                //viewMessage.isHidden = false
-                //lblMessage.text = """
-                //Something went wrong!
-                //Try again later.
-                //"""
-                //imgMeessage.image = #imageLiteral(resourceName: "Error")
             }
         }
     }
@@ -54,7 +45,7 @@ class ViewController: UIViewController {
         state = .loading
         
         // 2
-        provider.request(.films) { [weak self] result in
+        providerSwapi.request(.films) { [weak self] result in
             guard let self = self else { return }
             
             // 3
@@ -62,9 +53,33 @@ class ViewController: UIViewController {
             case .success(let response):
                 do {
                     // 4
-                    //print(try response.mapJSON())
-                    //self.state = .ready(try response.map(MarvelResponse<Comic>.self).data.results)
-                    self.state = .ready(try response.map(SwapiResponse<Film>.self).results)
+                    var movies = try response.map(SwapiResponse<Film>.self).results
+                    self.state = .ready(movies)
+                    
+                    for (index, var item) in movies.enumerated() {
+                        self.providerTheMovieBD.request(.search(item.title)) { [weak self] result in
+                            guard let self = self else { return }
+                            
+                            // 3
+                            switch result {
+                            case .success(let response):
+                                do {
+                                    // 4
+                                    let images = try response.map(TheMoviesBDResponse.self).results
+                                    item.poster_path = images[0].poster_path!  //TODO: mettre un placeholder si pas d'image
+                                    movies[index] = item
+                                    self.state = .ready(movies)
+                                } catch {
+                                    print("1")
+                                    //self.state = .error
+                                }
+                            case .failure:
+                                // 5
+                                print("2")
+                                //self.state = .error
+                            }
+                        }
+                    }
                 } catch {
                     self.state = .error
                 }
@@ -76,11 +91,10 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //let navVC = segue.destination as! UINavigationController
         let destVC = segue.destination as! DetailsViewController
         guard case .ready(let items) = state else { return }
-        destVC.itemToShow = items[tableView.indexPath(for: (sender as! UITableViewCell))!.row]
-        //destVC.delegate = self
+        let index = tableView.indexPath(for: (sender as! UITableViewCell))!.row
+        destVC.itemToShow = items[index]
     }
 }
 
@@ -94,30 +108,41 @@ extension ViewController {
 
 // MARK: - UITableView Delegate & Data Source
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "FilmCell", for: indexPath)
-
-    guard case .ready(let items) = state else { return cell }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //let cell = tableView.dequeueReusableCell(withIdentifier: FilmCell.reuseIdentifier, for: indexPath) as? FilmCell ?? FilmCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FilmCell", for: indexPath)
+        
+        guard case .ready(let items) = state else { return cell }
+        
+        let item = items[indexPath.row]
+        
+        cell.textLabel?.text = item.title
+        cell.detailTextLabel?.text = item.release_date
+        
+        if let endPath = item.poster_path {
+            let startPath: String = "https://image.tmdb.org/t/p/original/"
+            let path: String = startPath + endPath
+            let url = URL(string: path)
+            print(path)
+            print("1")
+            cell.imageView?.kf.setImage(with: url)
+        }
+        
+        return cell
+    }
     
-    cell.textLabel?.text = items[indexPath.row].title
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard case .ready(let items) = state else { return 0 }
+        
+        return items.count
+    }
     
-    return cell
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard case .ready(let items) = state else { return 0 }
-
-    return items.count
-  }
-  
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: false)
-    guard case .ready(let items) = state else { return }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
-    
-  }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+    }
 }
